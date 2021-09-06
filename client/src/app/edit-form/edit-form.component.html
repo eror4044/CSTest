@@ -1,0 +1,46 @@
+<div class="row container p-5">
+  <form [formGroup]="carsForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="mb-1 d-flex col-auto">
+      <label for="Fname" class="col-form-label mr-5">Имя</label>
+      <input type="text" formControlName="FirstName" class="form-control">
+    </div>
+    <div class="mb-1 d-flex col-auto">
+      <label for="Mname" class="col-form-label mr-3">Фамилия</label>
+      <input type="text" formControlName="MiddleName" class="form-control">
+    </div>
+    <div class="mb-1 d-flex col-auto">
+      <label for="Lname" class="col-form-label mr-3">Отчество</label>
+      <input type="text" formControlName="LastName" class="form-control">
+    </div>
+
+    <h1>Автомобили</h1>
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th scope="col">Номер</th>
+          <th scope="col">Марка</th>
+          <th scope="col">Модель</th>
+          <th scope="col">Год</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="cars">
+        <tr *ngFor="let cars of carsList.controls; let i = index" >
+          <ng-container [formGroupName]="i">
+          <td><input type="text" class="form-control" formControlName="id"></td>
+          <td><input type="text" class="form-control" formControlName="brand"></td>
+          <td><input type="text" class="form-control" formControlName="model"></td>
+          <td><input type="text" class="form-control" formControlName="productionYear"></td>
+          <td><button type="button"(click)="removeFormControl(i)" class="form-control btn btn-danger"><i class="fas fa-trash"></i></button></td>
+        </ng-container>
+        </tr>
+      </tbody>
+      <button type="button" [disabled]="!carsForm.valid" (click)="addCar()" class="btn btn-primary m-2 p-2">
+        <span><i class="fas fa-plus"></i> Добавить автомобиль</span>
+      </button>
+    </table>
+    <button type="submit" class="btn btn-primary mr-1" [disabled]="!carsForm.valid"><span> <i class="far fa-save"></i> Сохранить</span></button>
+  </form>
+  <button type="button" routerLink="/home" class="btn btn-secondary"><span><i class="fas fa-arrow-circle-left"></i>
+      Назад</span></button>
+
+</div>
